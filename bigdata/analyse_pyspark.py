@@ -12,7 +12,7 @@ from pyspark.sql.window import Window
 
 
 def build_spark_session(app_name: str = "AnalyseCA_StationsService") -> SparkSession:
-    """Initialise la session Spark (mode local, adapte a une demonstration)."""
+    """Initialise la session Spark """
     return (
         SparkSession.builder
         .appName(app_name)
@@ -40,9 +40,6 @@ def charger_ventes(spark: SparkSession, chemin_csv: str):
 
 
 def controle_qualite(df):
-    """Applique les memes controles de qualite que le pipeline ETL SQL
-    (cf. Chapitre 5, section 5.3) : exclusion des lignes incompletes
-    ou physiquement aberrantes."""
     avant = df.count()
     df_propre = df.filter(
         F.col("prix").isNotNull()
